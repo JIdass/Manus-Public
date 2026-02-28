@@ -1,40 +1,60 @@
-# Projeto de Prospecção de Contatos Automatizada
+# Compliance Engine — Resolução BCB 4.893
 
 ## Visão Geral
 
-Este projeto apresenta uma solução automatizada para a prospecção e coleta de informações de contato de negócios locais. Desenvolvido com foco em eficiência e conformidade, o sistema visa otimizar processos de aquisição de dados para fins de marketing e vendas, garantindo a aderência a princípios éticos e regulatórios.
+Este projeto apresenta o **Compliance Engine**, uma solução tecnológica avançada desenvolvida para automatizar a análise de conformidade regulatória, com foco específico na **Resolução BCB 4.893** do Banco Central do Brasil. O sistema combina extração determinística de dados, busca semântica e análise lógica para garantir que instituições financeiras e sistemas de tecnologia atendam aos rigorosos requisitos de segurança cibernética e serviços em nuvem.
 
-## Objetivo
+## Arquitetura do Sistema
 
-O principal objetivo do sistema é coletar, de forma automatizada e direcionada, informações de contato relevantes (como telefone e/ou e-mail) de empresas em categorias específicas e localizações geográficas definidas. A meta é fornecer uma base de dados estruturada e de alta qualidade para campanhas estratégicas, minimizando o esforço manual e acelerando a identificação de potenciais clientes.
+O motor de conformidade opera através de três camadas integradas, projetadas para fornecer precisão, auditabilidade e velocidade:
 
-## Funcionalidades Chave
+| Camada | Funcionalidade | Valor para Auditoria |
+| :--- | :--- | :--- |
+| **LangExtract** | Extração determinística de obrigações estruturadas (artigo, prazo, sujeito, penalidade). | Garante rastreabilidade total da origem da obrigação sem riscos de alucinação. |
+| **RAG (Retrieval-Augmented Generation)** | Busca semântica otimizada sobre o texto da resolução (BM25 + TF-IDF). | Permite consultas em linguagem natural com citação direta dos artigos fonte. |
+| **Epistemic Checker** | Avaliação lógica de lacunas (Gap Analysis) usando lógica de quatro valores (FOUR). | Identifica conformidade total, não-conformidade, conflitos ou áreas não cobertas. |
 
-*   **Coleta de Dados Inteligente:** O sistema emprega métodos avançados para identificar e extrair informações de contato de fontes públicas e acessíveis, focando na relevância e na precisão dos dados.
-*   **Filtragem e Categorização:** As informações coletadas são automaticamente filtradas e categorizadas de acordo com critérios predefinidos (e.g., tipo de negócio, localização), permitindo uma segmentação eficaz.
-*   **Geração de Relatórios Estruturados:** Os dados resultantes são apresentados em formatos padronizados e de fácil utilização, como planilhas, facilitando a integração com outras plataformas e a análise por parte das equipes de marketing e vendas.
-*   **Conformidade e Ética:** O processo de coleta é desenhado para operar em estrita conformidade com as leis de proteção de dados, como a Lei Geral de Proteção de Dados (LGPD) no Brasil, utilizando apenas informações publicamente disponíveis e respeitando os limites de uso.
+## Funcionalidades Estratégicas para Auditores
 
-## Benefícios para Auditores
+### 1. Extração Estruturada de Obrigações
+O sistema processa a norma regulatória e gera um esquema detalhado de obrigações, categorizando-as por tipo (Notificação, Registro, Controle, Auditoria, Rastreabilidade) e nível de relevância para modelos de decisão automatizada e Machine Learning (ML).
 
-Para auditores, este projeto demonstra uma abordagem robusta e transparente na gestão de dados para prospecção. Os aspectos a serem destacados incluem:
+### 2. Análise de Lacunas (Gap Analysis) Automatizada
+O **Epistemic Checker** confronta as capacidades declaradas do sistema com as exigências da Resolução 4.893. Ele utiliza uma abordagem lógica rigorosa para classificar cada artigo:
+*   **Conforme (T):** O sistema atende plenamente aos requisitos.
+*   **Não-Conforme (F):** Identificação clara de lacunas que exigem implementação.
+*   **Conflito/Parcial (⊤):** Cobertura parcial que requer atenção específica ou revisão.
+*   **Não Avaliado (⊥):** Áreas que exigem revisão manual por não estarem mapeadas no escopo automático.
 
-*   **Governança de Dados:** O sistema adere a um modelo de governança que prioriza a coleta ética e legal de informações, reduzindo riscos associados à privacidade e conformidade.
-*   **Rastreabilidade e Integridade:** A metodologia empregada assegura a rastreabilidade das fontes de dados e a integridade das informações coletadas, elementos cruciais para auditorias de processos.
-*   **Eficiência Operacional:** A automação do processo de prospecção resulta em uma significativa otimização de recursos e tempo, com impacto positivo na eficiência operacional e na redução de custos.
-*   **Mitigação de Riscos:** Ao focar em dados públicos e conformidade regulatória, o projeto minimiza os riscos legais e de reputação para a organização.
+### 3. Rastreabilidade e Evidências
+Para cada obrigação identificada, o motor sugere as evidências necessárias para comprovação de conformidade, tais como:
+*   Logs de incidentes e timestamps de identificação.
+*   Trilhas de auditoria por transação com integridade garantida por hashes (SHA-256).
+*   Documentação de critérios e parâmetros para decisões automatizadas.
 
-## Saída do Sistema
+## Desempenho e Eficiência
 
-O sistema gera arquivos de dados contendo informações de contato organizadas por categoria. Cada registro inclui detalhes como nome do negócio, telefone, e-mail (quando disponível), endereço e outras informações relevantes que auxiliam na qualificação e no engajamento com os contatos.
+O motor foi desenvolvido para ser extremamente leve e rápido, operando sem a necessidade de frameworks externos pesados ou APIs de modelos de linguagem (LLM) de terceiros para as tarefas críticas, o que assegura:
+*   **Latência Ultrabaixa:** Extração e análise realizadas em milissegundos.
+*   **Privacidade de Dados:** O processamento ocorre localmente, sem envio de dados sensíveis para nuvens externas durante a análise de conformidade.
+*   **Determinismo:** O mesmo texto regulatório sempre resultará na mesma análise, permitindo reprodutibilidade em processos de auditoria.
 
-## Acesso ao Código e Detalhes Técnicos
+## Saída e Relatórios
 
-Este repositório serve como uma vitrine funcional do projeto, descrevendo suas capacidades e benefícios. O código-fonte subjacente e os detalhes técnicos da implementação, incluindo a matemática envolvida nos algoritmos de coleta e processamento, não são disponibilizados publicamente neste repositório para proteger a propriedade intelectual e os segredos comerciais da solução. Para informações adicionais ou demonstrações, por favor, entre em contato com a equipe de desenvolvimento.
+O sistema gera relatórios técnicos em formato JSON, prontos para integração com dashboards de GRC (Governance, Risk, and Compliance). Estes relatórios incluem:
+*   Percentual de conformidade atual.
+*   Lista priorizada de ações requeridas para mitigar lacunas identificadas.
+*   Hash de integridade do relatório para garantir que os resultados da auditoria não foram alterados.
+
+## Propriedade Intelectual
+
+Este repositório descreve as capacidades e a lógica de alto nível do **Compliance Engine**. O código-fonte proprietário, os algoritmos específicos de extração e a lógica matemática subjacente do *Epistemic Checker* são protegidos e não estão disponíveis publicamente. Esta documentação serve como garantia de funcionalidade e transparência metodológica para auditores e parceiros estratégicos.
+
+---
 
 ## Autor
 
-**Manus AI** - Desenvolvimento de Soluções de Automação Inteligente
+**Manus AI** - Desenvolvimento de Soluções de Automação e Compliance Inteligente
 
 **Data:** 28 de Fevereiro de 2026
-**Versão:** 1.0
+**Versão:** 2.0 (Atualizada com suporte à Resolução BCB 4.893)
